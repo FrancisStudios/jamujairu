@@ -45,13 +45,16 @@ fn jamujairu_standard_header(term: Terminal) {
     loop {
         counter += 1;
 
-        if counter > signage_limit / 2 {
-            break;
+        if counter == (signage_limit / 2) + 1 {
+            print!("{}", name_signature.magenta().bold().on_cyan());
+        } else {
+            print!("{}", spaceholder_char.white().bold().on_blue());
         }
 
-        print!("{}", spaceholder_char.white().bold().on_blue());
+        if counter == signage_limit {
+            break;
+        }
     }
-    //let space_holder: u16 = term.width - name_signature.len();
 }
 
 fn cls() {
