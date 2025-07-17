@@ -16,8 +16,8 @@ use colored::Colorize;
 use terminal_size::{terminal_size, Height, Width};
 
 struct Terminal {
-    width: u16,
-    height: u16,
+    width: usize,
+    height: usize,
     is_size: bool,
 }
 
@@ -29,8 +29,33 @@ fn main() {
 
 fn jamujairu_standard_header(term: Terminal) {
     let name_signature: &str = " [JAMUJAIRU] ";
-    let mut leading_eqs: &str = "=";
+    let spaceholder_char: &str = "=";
+    let spaceholder_limit: usize = term.width - name_signature.chars().count();
+
+    let signage_limit: usize = if spaceholder_limit % 2 == 0 {
+        spaceholder_limit / 2
+    } else {
+        spaceholder_limit - 1 / 2
+    };
+
+    cls();
+
+    let mut counter: usize = 0;
+
+    loop {
+        counter += 1;
+
+        if counter > signage_limit / 2 {
+            break;
+        }
+
+        print!("{}", spaceholder_char.white().bold().on_blue());
+    }
     //let space_holder: u16 = term.width - name_signature.len();
+}
+
+fn cls() {
+    print!("{esc}[2J{esc}[1;1H", esc = 27 as char);
 }
 
 /**
@@ -50,8 +75,8 @@ fn get_terminal_size() -> Terminal {
     }
 
     return Terminal {
-        width: terminal_width,
-        height: terminal_height,
+        width: terminal_width as usize,
+        height: terminal_height as usize,
         is_size: (terminal_height != 0 && terminal_width != 0),
     };
 }
