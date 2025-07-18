@@ -29,7 +29,7 @@ fn main() {
 
 fn jamujairu_standard_header(term: Terminal) {
     let name_signature: &str = " [JAMUJAIRU] ";
-    let spaceholder_char: &str = "=";
+    let spaceholder_char: &str = "■";
     let spaceholder_limit: usize = term.width - name_signature.chars().count();
 
     let signage_limit: usize = if spaceholder_limit % 2 == 0 {
@@ -48,10 +48,10 @@ fn jamujairu_standard_header(term: Terminal) {
         if counter == (signage_limit / 2) + 1 {
             print!("{}", name_signature.magenta().bold().on_cyan());
         } else {
-            print!("{}", spaceholder_char.white().bold().on_blue());
+            print!("{}", spaceholder_char.purple().bold());
         }
 
-        if counter == signage_limit {
+        if counter == spaceholder_limit {
             break;
         }
     }
